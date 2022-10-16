@@ -1,0 +1,59 @@
+.cover-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+
+  &__text {
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 64px;
+
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
+
+  &__emoji {
+    position: absolute;
+    top: -40px;
+    left: 100%;
+    width: 54px;
+    height: 54px;
+  }
+
+  &__logos {
+    display: flex;
+    flex-direction: row;
+    align-self: start;
+  }
+
+  &__logo {
+    margin-right: 15px;
+    height: 66px;
+    width: 66px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    &:hover {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 5s ease infinite;
+
+
+      @keyframes gradient {
+        0% {
+          background-position: 0 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0 50%;
+        }
+      }
+    }
+  }
+}

@@ -1,10 +1,11 @@
 .welcome-bar {
+  position: fixed;
+  top: 40px;
+
   display: flex;
-  //justify-content: center;
   align-items: center;
 
   height: 40px;
-  margin-top: 40px;
   background: white;
   border-width: 1px 0;
   border-style: solid;
@@ -12,7 +13,16 @@
   overflow: hidden;
 
   &__strings {
-    transform: translateX(var(--welcome-text-pos));
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(var(--welcome-text-length));
+        }
+    }
+
+    animation: scroll 10s linear infinite;
   }
 
   &__text {
@@ -20,10 +30,17 @@
     font-size: 14px;
     line-height: 17px;
     margin-left: 40px;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
   }
 
   &--vertical {
     transform: rotate(90deg);
+    transform-origin: 0 0;
+    top: 0;
+    left: 80px;
   }
 }
 

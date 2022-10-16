@@ -1,3 +1,10 @@
 body {
   font-family: Montserrat, sans-serif;
+  min-height: 100vh;
+}
+
+.first-panel {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
 }

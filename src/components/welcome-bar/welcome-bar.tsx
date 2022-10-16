@@ -1,23 +1,21 @@
 import styles from "./welcome-bar.module.scss";
 import { useEffect, useRef, useState } from "react";
 // @ts-ignore
-import { useWindowDimensions } from "../../tools/tools";
+import { asyncSetTimeout, useWindowDimensions } from "../../tools/tools";
 
 interface welcomeBar {
   vertical?: boolean;
 }
 
-const WelcomeBar = (props: welcomeBar) => {
+const WelcomeBar = ({ vertical }: welcomeBar) => {
   const [numOfWelcomeStrings, setNumOfWelcomeStrings] = useState(1);
   const welcomeStrings = Array(numOfWelcomeStrings).fill("WELCOME");
   const welcomeStringRef = useRef<HTMLDivElement>(null);
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
   useEffect(() => {
-    const welcomeStringElement:
-      | HTMLDivElement
-      | null
-      | undefined = welcomeStringRef.current?.firstChild as HTMLDivElement;
+    const welcomeStringElement: HTMLDivElement | null | undefined =
+      welcomeStringRef.current?.firstChild as HTMLDivElement;
     if (!welcomeStringElement) {
       return;
     }
@@ -27,42 +25,25 @@ const WelcomeBar = (props: welcomeBar) => {
       return;
     }
 
-    const newNumOfWelcomeStrings = Math.ceil(windowWidth / elementWidth);
+    document.documentElement.style.setProperty(
+      "--welcome-text-length",
+      `-${elementWidth + 40}px`
+    );
+
+    let newNumOfWelcomeStrings: number;
+    if (vertical) {
+      newNumOfWelcomeStrings = Math.ceil(windowHeight / elementWidth);
+    } else {
+      newNumOfWelcomeStrings = Math.ceil(windowWidth / elementWidth);
+    }
+
     setNumOfWelcomeStrings(newNumOfWelcomeStrings);
-  }, [windowWidth]);
-
-  useEffect(() => {
-    let i = 0;
-
-    setInterval(() => {
-      const welcomeStringElement:
-        | HTMLDivElement
-        | null
-        | undefined = welcomeStringRef.current?.firstChild as HTMLDivElement;
-
-      if (!welcomeStringElement) {
-        return;
-      }
-
-      if (i === welcomeStringElement.offsetWidth + 40) {
-        i = 0;
-      }
-
-      document.documentElement.style.setProperty(
-        "--welcome-text-pos",
-        `-${i}px`
-      );
-
-      i = i + 0.5;
-    }, 50);
-  }, []);
-
-  console.log(styles);
+  }, [windowWidth, windowHeight, vertical]);
 
   return (
     <div
       className={`${styles["welcome-bar"]} ${
-        props.vertical ? styles["welcome-bar--vertical"] : ""
+        vertical ? styles["welcome-bar--vertical"] : ""
       }`}
     >
       <div className={styles["welcome-bar__strings"]} ref={welcomeStringRef}>
