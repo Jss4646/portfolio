@@ -41,6 +41,11 @@
     transform-origin: 0 0;
     top: 0;
     left: 80px;
+    display: none;
+
+    @media (min-width: 768px) {
+      display: initial;
+    }
   }
 }
 
