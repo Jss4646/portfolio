@@ -1,0 +1,31 @@
+.welcome-bar {
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+
+  height: 40px;
+  margin-top: 40px;
+  background: white;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #000000;
+  overflow: hidden;
+
+  &__strings {
+    transform: translateX(var(--welcome-text-pos));
+  }
+
+  &__text {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    margin-left: 40px;
+  }
+
+  &--vertical {
+    transform: rotate(90deg);
+  }
+}
+
+
+
